@@ -20,12 +20,14 @@ namespace Storage.Controllers
         }
 
         // GET: Products
+        // Shows all Products currently in the database
         public async Task<IActionResult> Index()
         {
             return View(await _context.Product.ToListAsync());
         }
 
         // GET: Products/Details/5
+        // Show details of the product; retrieve product based on id
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,6 +46,7 @@ namespace Storage.Controllers
         }
 
         // GET: Products/Create
+        // Initial view of the create page
         public IActionResult Create()
         {
             return View();
@@ -54,18 +57,21 @@ namespace Storage.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Orderdate,Category,Shelf,Count,Description")] Product product)
+        // Actual submission of the Creation request
+        public async Task<IActionResult> Create(
+            [Bind("Id,Name,Price,Orderdate,Category,Shelf,Count,Description")] Product product)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(product);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));  // When successful, return to index
             }
             return View(product);
         }
 
         // GET: Products/Edit/5
+        // Initial view of the edit page
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -86,7 +92,10 @@ namespace Storage.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Orderdate,Category,Shelf,Count,Description")] Product product)
+        // Actual submission of edits for an item
+        public async Task<IActionResult> Edit(
+            int id,
+            [Bind("Id,Name,Price,Orderdate,Category,Shelf,Count,Description")] Product product)
         {
             if (id != product.Id)
             {
@@ -117,6 +126,7 @@ namespace Storage.Controllers
         }
 
         // GET: Products/Delete/5
+        // Initial view of delete page
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,6 +147,7 @@ namespace Storage.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        // Actual deletion of an item
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var product = await _context.Product.FindAsync(id);
