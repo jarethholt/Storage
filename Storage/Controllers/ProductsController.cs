@@ -168,6 +168,17 @@ namespace Storage.Controllers
             return View(await inventory.ToListAsync());
         }
 
+        public async Task<IActionResult> SearchCategory(string? searchString)
+        {
+            if (String.IsNullOrWhiteSpace(searchString))
+            {
+                return View("Index", await _context.Product.ToListAsync());
+            }
+            var products = _context.Product.Where(
+                product => product.Category.Contains(searchString));
+            return View("Index", await products.ToListAsync());
+        }
+
         private bool ProductExists(int id)
         {
             return _context.Product.Any(e => e.Id == id);
