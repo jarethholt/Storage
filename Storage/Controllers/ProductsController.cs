@@ -160,6 +160,22 @@ namespace Storage.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // View a total over the entire inventory
+        public async Task<IActionResult> Inventory()
+        {
+            List<Product> inventory = await _context.Product.ToListAsync();
+            IEnumerable<ProductViewModel> inventoryView = inventory.Select(
+                product => new ProductViewModel {
+                    Name = product.Name,
+                    Price = product.Price,
+                    Count = product.Count,
+                    InventoryValue = product.Price * product.Count
+                });
+            //int inventoryValue = inventoryView.Sum(
+            //    productView => productView.InventoryValue);
+            return View(inventoryView);
+        }
+
         private bool ProductExists(int id)
         {
             return _context.Product.Any(e => e.Id == id);
