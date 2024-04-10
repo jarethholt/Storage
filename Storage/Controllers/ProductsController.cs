@@ -163,17 +163,9 @@ namespace Storage.Controllers
         // View a total over the entire inventory
         public async Task<IActionResult> Inventory()
         {
-            List<Product> inventory = await _context.Product.ToListAsync();
-            IEnumerable<ProductViewModel> inventoryView = inventory.Select(
-                product => new ProductViewModel {
-                    Name = product.Name,
-                    Price = product.Price,
-                    Count = product.Count,
-                    InventoryValue = product.Price * product.Count
-                });
-            //int inventoryValue = inventoryView.Sum(
-            //    productView => productView.InventoryValue);
-            return View(inventoryView);
+            var inventory = _context.Product.Select(
+                product => ProductViewModel.FromProduct(product));
+            return View(await inventory.ToListAsync());
         }
 
         private bool ProductExists(int id)
