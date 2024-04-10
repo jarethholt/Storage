@@ -10,6 +10,11 @@ builder.Services.AddDbContext<StorageContext>(options =>
         builder.Configuration.GetConnectionString("StorageContext")
         ?? throw new InvalidOperationException("Connection string 'StorageContext' not found.")
     ));
+// The Pluralsight course uses the following:
+// builder.Services.AddScoped<IRepository, MockRepository>();
+// Repository access is abstracted through an interface and then mocked
+// AddScoped creates a quasi-singleton for use during each request
+// Other options are AddTransient and AddSingleton
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -38,7 +43,8 @@ app.UseAuthorization();  // Enable authorization of users
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");  // Pattern specifies how to translate a URL into an endpoint/request
+    //pattern: "{controller=Home}/{action=Index}/{id?}");  // Pattern specifies how to translate a URL into an endpoint/request
+    pattern: "{controller=Products}/{action=Index}/{id?}");
 
 // Primary function that starts the server and runs the application
 app.Run();
