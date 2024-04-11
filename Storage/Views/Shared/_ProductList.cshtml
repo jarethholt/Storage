@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Storage.Models.Product>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="text-left">
+                @Html.DisplayNameFor(product => product.Name)
+            </th>
+            <th class="text-right">
+                @Html.DisplayNameFor(product => product.Price)
+            </th>
+            <th class="text-right">
+                @Html.DisplayNameFor(product => product.Orderdate)
+            </th>
+            <th class="text-right">
+                @Html.DisplayNameFor(product => product.Category)
+            </th>
+            <th class="text-right">
+                @Html.DisplayNameFor(product => product.Shelf)
+            </th>
+            <th class="text-right">
+                @Html.DisplayNameFor(product => product.Count)
+            </th>
+            <th class="text-left">
+                @Html.DisplayNameFor(product => product.Description)
+            </th>
+            <th class="text-center"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td class="text-left">
+                    @Html.DisplayFor(_ => product.Name)
+                </td>
+                <td class="text-right">
+                    @Html.DisplayFor(_ => product.Price)
+                </td>
+                <td class="text-right">
+                    @Html.DisplayFor(_ => product.Orderdate)
+                </td>
+                <td class="text-right">
+                    @Html.DisplayFor(_ => product.Category.Name)
+                </td>
+                <td class="text-right">
+                    @Html.DisplayFor(_ => product.Shelf)
+                </td>
+                <td class="text-right">
+                    @Html.DisplayFor(_ => product.Count)
+                </td>
+                <td class="text-left">
+                    @Html.DisplayFor(_ => product.Description)
+                </td>
+                <td class="text-center">
+                    <a asp-action="Edit"    asp-route-id="@product.ProductId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@product.ProductId">Details</a> |
+                    <a asp-action="Delete"  asp-route-id="@product.ProductId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

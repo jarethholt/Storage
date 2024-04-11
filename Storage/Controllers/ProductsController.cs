@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using Storage.Data;
 using Storage.Models;
 
@@ -8,12 +9,14 @@ namespace Storage.Controllers
     public class ProductsController(StorageContext context) : Controller
     {
         private readonly StorageContext _context = context;
+        private readonly IIncludableQueryable<Product, Category> _products
+            = context.Product.Include(c => c.Category);
 
         // GET: Products
         // Shows all Products currently in the database
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Product.Include(c => c.Category).ToListAsync());
+            return View(await _products.ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -25,8 +28,8 @@ namespace Storage.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Product
-                .FirstOrDefaultAsync(m => m.ProductId == id);
+            var product = await _products
+                .FirstOrDefaultAsync(product => product.ProductId == id);
             if (product == null)
             {
                 return NotFound();
@@ -124,8 +127,8 @@ namespace Storage.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Product
-                .FirstOrDefaultAsync(m => m.ProductId == id);
+            var product = await _products
+                .FirstOrDefaultAsync(product => product.ProductId == id);
             if (product == null)
             {
                 return NotFound();
@@ -153,7 +156,7 @@ namespace Storage.Controllers
         // View a total over the entire inventory
         public async Task<IActionResult> Inventory()
         {
-            var inventory = _context.Product.Select(
+            var inventory = _products.Select(
                 product => ProductViewModel.FromProduct(product));
             return View(await inventory.ToListAsync());
         }
@@ -162,16 +165,16 @@ namespace Storage.Controllers
         {
             if (String.IsNullOrWhiteSpace(searchString))
             {
-                return View("Index", await _context.Product.ToListAsync());
+                return View("Index", await _products.ToListAsync());
             }
-            var products = _context.Product.Where(
+            var products = _products.Where(
                 product => product.Category.Name.Contains(searchString));
             return View("Index", await products.ToListAsync());
         }
 
         private bool ProductExists(int id)
         {
-            return _context.Product.Any(e => e.ProductId == id);
+            return _context.Product.Any(product => product.ProductId == id);
         }
     }
 }

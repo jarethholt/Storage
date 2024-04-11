@@ -1,0 +1,46 @@
+﻿@model Storage.Models.Product
+
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(product => product.Name)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(product => product.Name)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(product => product.Price)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(product => product.Price)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(product => product.Orderdate)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(product => product.Orderdate)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(product => product.Category.Name)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(product => product.Category.Name)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(product => product.Shelf)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(product => product.Shelf)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(product => product.Count)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(product => product.Count)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(product => product.Description)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(product => product.Description)
+    </dd>
+</dl>
