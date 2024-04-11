@@ -13,7 +13,7 @@ namespace Storage.Controllers
         // Shows all Products currently in the database
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Product.ToListAsync());
+            return View(await _context.Product.Include(c => c.Category).ToListAsync());
         }
 
         // GET: Products/Details/5

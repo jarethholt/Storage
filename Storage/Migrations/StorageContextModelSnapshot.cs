@@ -85,7 +85,7 @@ namespace Storage.Migrations
             modelBuilder.Entity("Storage.Models.Product", b =>
                 {
                     b.HasOne("Storage.Models.Category", "Category")
-                        .WithMany()
+                        .WithMany("Product")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
