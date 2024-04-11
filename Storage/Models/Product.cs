@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Storage.Models
 {
@@ -7,7 +8,7 @@ namespace Storage.Models
     {
         [Key]
         [HiddenInput(DisplayValue = false)]
-        public int Id { get; set; }
+        public int ProductId { get; set; }
         [Required]
         [StringLength(255, MinimumLength = 2)]
         public string Name { get; set; } = string.Empty;
@@ -17,9 +18,12 @@ namespace Storage.Models
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime Orderdate { get; set; }
+        [ForeignKey("Category")]
+        [HiddenInput(DisplayValue = false)]
+        public int CategoryId { get; set; }
         [Required]
         [StringLength(255, MinimumLength = 2)]
-        public string Category { get; set; } = string.Empty;
+        public Category Category { get; set; } = default!;
         [Required]
         [StringLength(10, MinimumLength = 1)]
         public string Shelf { get; set; } = string.Empty;

@@ -1,23 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Storage.Data;
 using Storage.Models;
 
 namespace Storage.Controllers
 {
-    public class ProductsController : Controller
+    public class ProductsController(StorageContext context) : Controller
     {
-        private readonly StorageContext _context;
-
-        public ProductsController(StorageContext context)
-        {
-            _context = context;
-        }
+        private readonly StorageContext _context = context;
 
         // GET: Products
         // Shows all Products currently in the database
@@ -36,7 +26,7 @@ namespace Storage.Controllers
             }
 
             var product = await _context.Product
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
                 return NotFound();
@@ -59,7 +49,7 @@ namespace Storage.Controllers
         [ValidateAntiForgeryToken]
         // Actual submission of the Creation request
         public async Task<IActionResult> Create(
-            [Bind("Id,Name,Price,Orderdate,Category,Shelf,Count,Description")] Product product)
+            [Bind("ProductId,Name,Price,Orderdate,CategoryId,Category,Shelf,Count,Description")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -95,9 +85,9 @@ namespace Storage.Controllers
         // Actual submission of edits for an item
         public async Task<IActionResult> Edit(
             int id,
-            [Bind("Id,Name,Price,Orderdate,Category,Shelf,Count,Description")] Product product)
+            [Bind("ProductId,Name,Price,Orderdate,CategoryId,Category,Shelf,Count,Description")] Product product)
         {
-            if (id != product.Id)
+            if (id != product.ProductId)
             {
                 return NotFound();
             }
@@ -111,7 +101,7 @@ namespace Storage.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.Id))
+                    if (!ProductExists(product.ProductId))
                     {
                         return NotFound();
                     }
@@ -135,7 +125,7 @@ namespace Storage.Controllers
             }
 
             var product = await _context.Product
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
                 return NotFound();
@@ -175,13 +165,13 @@ namespace Storage.Controllers
                 return View("Index", await _context.Product.ToListAsync());
             }
             var products = _context.Product.Where(
-                product => product.Category.Contains(searchString));
+                product => product.Category.Name.Contains(searchString));
             return View("Index", await products.ToListAsync());
         }
 
         private bool ProductExists(int id)
         {
-            return _context.Product.Any(e => e.Id == id);
+            return _context.Product.Any(e => e.ProductId == id);
         }
     }
 }
