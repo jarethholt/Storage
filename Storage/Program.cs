@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Storage.Data;
+using Storage.Models;
 
 // The builder is what's used to register services
 // It then handles the dependency injection needed to build the app
@@ -45,6 +46,9 @@ app.MapControllerRoute(
     name: "default",
     //pattern: "{controller=Home}/{action=Index}/{id?}");  // Pattern specifies how to translate a URL into an endpoint/request
     pattern: "{controller=Products}/{action=Index}/{id?}");
+
+// From the Pluralsight course: Seed the database if empty
+DbInitializer.Seed(app);
 
 // Primary function that starts the server and runs the application
 app.Run();
