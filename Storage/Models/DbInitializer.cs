@@ -1,8 +1,5 @@
 ﻿// Based on the Pluralsight course
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using Storage.Data;
-using System.ComponentModel;
 
 namespace Storage.Models
 {
