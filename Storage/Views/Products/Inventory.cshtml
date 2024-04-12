@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Storage.Models.ProductViewModel>
+﻿@model IEnumerable<ProductViewModel>
 
 @{
     ViewData["Title"] = "Inventory";
@@ -9,20 +9,20 @@
 <table class="table">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Name)</th>
-            <th style="text-align:right">@Html.DisplayNameFor(model => model.Price)</th>
-            <th style="text-align:right">@Html.DisplayNameFor(model => model.Count)</th>
-            <th style="text-align:right">@Html.DisplayNameFor(model => model.InventoryValue)</th>
+            <th class="text-start">@Html.DisplayNameFor(productView => productView.Name)</th>
+            <th class="text-end">@Html.DisplayNameFor(productView => productView.Price)</th>
+            <th class="text-end">@Html.DisplayNameFor(productView => productView.Count)</th>
+            <th class="text-end">@Html.DisplayNameFor(productView => productView.InventoryValue)</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model)
+@foreach (var productView in Model)
 {
         <tr>
-            <td>@Html.DisplayFor(modelItem => item.Name)</td>
-            <td style="text-align:right">@Html.DisplayFor(modelItem => item.Price)</td>
-            <td style="text-align:right">@Html.DisplayFor(modelItem => item.Count)</td>
-            <td style="text-align:right">@Html.DisplayFor(modelItem => item.InventoryValue)</td>
+            <td class="text-start">@Html.DisplayFor(_ => productView.Name)</td>
+            <td class="text-end">@Html.DisplayFor(_ => productView.Price)</td>
+            <td class="text-end">@Html.DisplayFor(_ => productView.Count)</td>
+            <td class="text-end">@Html.DisplayFor(_ => productView.InventoryValue)</td>
         </tr>
 }
     </tbody>
@@ -31,7 +31,7 @@
             <th>Total</th>
             <td></td>
             <td></td>
-            <td style="text-align:right">@Model.Sum(model => model.InventoryValue)</td>
+            <td class="text-end">@Model.Sum(productView => productView.InventoryValue)</td>
         </tr>
     </tfoot>
 </table>
