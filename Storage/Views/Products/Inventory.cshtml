@@ -9,29 +9,29 @@
 <table class="table">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Name)</th>
-            <th style="text-align:right">@Html.DisplayNameFor(model => model.Price)</th>
-            <th style="text-align:right">@Html.DisplayNameFor(model => model.Count)</th>
-            <th style="text-align:right">@Html.DisplayNameFor(model => model.InventoryValue)</th>
+            <th class="text-start">@Html.DisplayNameFor(model => model.Name)</th>
+            <th class="text-end">@Html.DisplayNameFor(model => model.Price)</th>
+            <th class="text-end">@Html.DisplayNameFor(model => model.Count)</th>
+            <th class="text-end">@Html.DisplayNameFor(model => model.InventoryValue)</th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model)
 {
         <tr>
-            <td>@Html.DisplayFor(modelItem => item.Name)</td>
-            <td style="text-align:right">@Html.DisplayFor(modelItem => item.Price)</td>
-            <td style="text-align:right">@Html.DisplayFor(modelItem => item.Count)</td>
-            <td style="text-align:right">@Html.DisplayFor(modelItem => item.InventoryValue)</td>
+            <td class="text-start">@Html.DisplayFor(modelItem => item.Name)</td>
+            <td class="text-end">@Html.DisplayFor(modelItem => item.Price)</td>
+            <td class="text-end">@Html.DisplayFor(modelItem => item.Count)</td>
+            <td class="text-end">@Html.DisplayFor(modelItem => item.InventoryValue)</td>
         </tr>
 }
     </tbody>
     <tfoot>
         <tr>
-            <th>Total</th>
+            <th class="text-start">Total</th>
             <td></td>
             <td></td>
-            <td style="text-align:right">@Model.Sum(model => model.InventoryValue)</td>
+            <td class="text-end">@Model.Sum(model => model.InventoryValue)</td>
         </tr>
     </tfoot>
 </table>
