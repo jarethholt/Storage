@@ -158,15 +158,28 @@ namespace Storage.Controllers
             return View(await inventory.ToListAsync());
         }
 
-        public async Task<IActionResult> SearchCategory(string? searchString)
+        public async Task<IActionResult> Search(
+            string? searchCategory,
+            string? searchName)
         {
-            if (String.IsNullOrWhiteSpace(searchString))
+            // If both category and name are missing, do nothing
+            if (String.IsNullOrWhiteSpace(searchCategory) && String.IsNullOrWhiteSpace(searchName))
             {
-                return View("Index", await _context.Product.ToListAsync());
+                return NoContent();
             }
-            var products = _context.Product.Where(
-                product => product.Category.Contains(searchString));
-            return View("Index", await products.ToListAsync());
+
+            var products = _context.Product as IQueryable<Product>;
+            if (!String.IsNullOrWhiteSpace(searchCategory))
+            {
+                products = products.Where(
+                    product => product.Category == searchCategory);
+            }
+            if (!String.IsNullOrWhiteSpace(searchName))
+            {
+                products = products.Where(
+                    product => product.Name.Contains(searchName));
+            }
+            return View("Search", await products.ToListAsync());
         }
 
         private bool ProductExists(int id)

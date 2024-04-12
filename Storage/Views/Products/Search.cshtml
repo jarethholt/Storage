@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h1>Search results</h1>
+
+<partial name="_ListProducts" model="Model" />
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
