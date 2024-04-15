@@ -11,7 +11,7 @@ namespace Storage.Models
         [HiddenInput(DisplayValue = false)]
         public int CategoryId { get; set; }
         [Required]
-        [StringLength(255, MinimumLength = 2)]
+        [StringLength(128, MinimumLength = 2)]
         public string Name { get; set; } = String.Empty;
     }
 }

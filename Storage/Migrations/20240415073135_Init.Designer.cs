@@ -12,7 +12,7 @@ using Storage.Data;
 namespace Storage.Migrations
 {
     [DbContext(typeof(StorageContext))]
-    [Migration("20240411092842_Init")]
+    [Migration("20240415073135_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -35,8 +35,8 @@ namespace Storage.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.HasKey("CategoryId");
 
@@ -62,13 +62,13 @@ namespace Storage.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.Property<DateTime>("Orderdate")
                         .HasColumnType("datetime2");
@@ -78,8 +78,8 @@ namespace Storage.Migrations
 
                     b.Property<string>("Shelf")
                         .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
 
                     b.HasKey("ProductId");
 

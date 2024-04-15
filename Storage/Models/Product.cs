@@ -10,7 +10,7 @@ namespace Storage.Models
         [HiddenInput(DisplayValue = false)]
         public int ProductId { get; set; }
         [Required]
-        [StringLength(255, MinimumLength = 2)]
+        [StringLength(128, MinimumLength = 2)]
         public string Name { get; set; } = string.Empty;
         [Required]
         [Range(0, 1_000_000)]
@@ -22,14 +22,14 @@ namespace Storage.Models
         public int CategoryId { get; set; }
         [Required]
         [ForeignKey("CategoryId")]
-        [StringLength(255, MinimumLength = 2)]
+        [StringLength(128, MinimumLength = 2)]
         public Category Category { get; set; } = default!;
         [Required]
-        [StringLength(10, MinimumLength = 1)]
+        [StringLength(128, MinimumLength = 1)]
         public string Shelf { get; set; } = string.Empty;
-        [Range(0, 1_000)]
+        [Range(0, 1_000_000)]
         public int Count { get; set; }
-        [StringLength(255)]
+        [StringLength(256)]
         public string Description { get; set; } = string.Empty;
     }
 }
