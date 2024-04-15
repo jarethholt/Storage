@@ -10,7 +10,7 @@ namespace Storage.Controllers
     {
         private readonly StorageContext _context = context;
         private readonly IIncludableQueryable<Product, Category> _products
-            = context.Product.Include(c => c.Category);
+            = context.Products.Include(c => c.Category);
 
         // GET: Products
         // Shows all Products currently in the database
@@ -72,7 +72,7 @@ namespace Storage.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Product.FindAsync(id);
+            var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
                 return NotFound();
@@ -143,10 +143,10 @@ namespace Storage.Controllers
         // Actual deletion of an item
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Product.FindAsync(id);
+            var product = await _context.Products.FindAsync(id);
             if (product != null)
             {
-                _context.Product.Remove(product);
+                _context.Products.Remove(product);
             }
 
             await _context.SaveChangesAsync();
@@ -174,7 +174,7 @@ namespace Storage.Controllers
 
         private bool ProductExists(int id)
         {
-            return _context.Product.Any(product => product.ProductId == id);
+            return _context.Products.Any(product => product.ProductId == id);
         }
     }
 }

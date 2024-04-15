@@ -39,12 +39,12 @@ namespace Storage.Models
                 = app.ApplicationServices.CreateScope()
                     .ServiceProvider.GetRequiredService<StorageContext>();
 
-            if (!context.Category.Any())
+            if (!context.Categories.Any())
             {
                 context.AddRange(SeedCategories.Select(kvp => kvp.Value));
             }
 
-            if (!context.Product.Any())
+            if (!context.Products.Any())
             {
                 context.AddRange(SeedProducts);
             }

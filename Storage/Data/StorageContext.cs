@@ -5,7 +5,7 @@ namespace Storage.Data
     public class StorageContext(DbContextOptions<StorageContext> options)
         : DbContext(options)
     {
-        public DbSet<Storage.Models.Product> Product { get; set; } = default!;
-        public DbSet<Storage.Models.Category> Category { get; set; } = default!;
+        public DbSet<Models.Product> Products { get; set; } = default!;
+        public DbSet<Models.Category> Categories { get; set; } = default!;
     }
 }
