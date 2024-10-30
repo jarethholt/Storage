@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Storage.Data;
 using Storage.Models;
+using Storage.Services;
 
 // The builder is what's used to register services
 // It then handles the dependency injection needed to build the app
@@ -18,6 +19,8 @@ builder.Services.AddDbContext<StorageContext>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<ICategorySelectListItemService, CategorySelectListItemService>();
 
 var app = builder.Build();
 

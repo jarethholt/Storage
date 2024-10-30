@@ -3,12 +3,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using Storage.Data;
 using Storage.Models;
+using Storage.Services;
+using Storage.ViewModels;
 
 namespace Storage.Controllers
 {
-    public class ProductsController(StorageContext context) : Controller
+    public class ProductsController(StorageContext context, ICategorySelectListItemService service) : Controller
     {
         private readonly StorageContext _context = context;
+        private readonly ICategorySelectListItemService _service = service;
         private readonly IIncludableQueryable<Product, Category> _products
             = context.Products.Include(c => c.Category);
 
@@ -157,7 +160,7 @@ namespace Storage.Controllers
         public async Task<IActionResult> Inventory()
         {
             var inventory = _products.Select(
-                product => ProductViewModel.FromProduct(product));
+                product => new ProductViewModel(product));
             return View(await inventory.ToListAsync());
         }
 

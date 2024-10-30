@@ -18,11 +18,7 @@ namespace Storage.Models
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd HH:mm}", ApplyFormatInEditMode = true)]
         public DateTime Orderdate { get; set; }
-        [HiddenInput(DisplayValue = false)]
-        public int CategoryId { get; set; }
         [Required]
-        [ForeignKey("CategoryId")]
-        [StringLength(128, MinimumLength = 2)]
         public Category Category { get; set; } = default!;
         [Required]
         [StringLength(128, MinimumLength = 1)]

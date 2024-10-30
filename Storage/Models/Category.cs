@@ -8,10 +8,6 @@ namespace Storage.Models
     public class Category
     {
         [Key]
-        [HiddenInput(DisplayValue = false)]
-        public int CategoryId { get; set; }
-        [Required]
-        [StringLength(128, MinimumLength = 2)]
         public string Name { get; set; } = String.Empty;
     }
 }
